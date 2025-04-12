@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "errorhandler": "^1.5.1",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "jwt-simple": "^0.5.6",
+    "md5": "^2.3.0",
+    "moment": "^2.30.1",
+    "mongoose": "^6.8.2",
+    "morgan": "^1.10.0",
+    "uuid": "^11.1.0"
+  }
+}
