@@ -28,7 +28,7 @@ var express = require('express'),
     const updateProduct = function(req, res){
         try{
             let productId = req.body.product_id
-            Product.updateOne({"_id":ObjectId(productId)}, function(err, updatedProduct){
+            Product.updateOne({"_id":ObjectId(productId)},{$set:req.body}, function(err, updatedProduct){
                 if(err){
                     return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res)
                 } else {

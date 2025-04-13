@@ -28,10 +28,11 @@ var express = require('express'),
     const updateBlog = function(req, res){
         try{
             let blogId = req.body.blog_id
-            Blog.updateOne({"_id":ObjectId(blogId)}, function(err, updatedBlog){
+            Blog.updateOne({"_id":ObjectId(blogId)},{$set:req.body}, function(err, updatedBlog){
                 if(err){
                     return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res)
                 } else {
+                    console.log("---updatedBlog---",updatedBlog)
                     return apiResponse.sendResponse({message:"Blog updated successfully"}, 200, res)
                 }
             })
