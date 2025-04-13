@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 
 var fields = {
    product_name:{type:String},
+   product_image:{type:String},
    ingredients:{type:String},
    weight:{type:String},
    fat:{type:String},
