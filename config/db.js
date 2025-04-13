@@ -1,30 +1,27 @@
 'use strict';
 const mongoose = require('mongoose');
-const systemconfig = require('../systemgitconfig/systemconfig');
 
-// Localhost settings
-const config = {
-  db: "oneonn",
-  host: systemconfig.HOST,
-  user: systemconfig.USER_NAME,
-  pw: systemconfig.PASSWRORD,
-  port: 27017
-};
+const mongoURI = process.env.MONGO_URI; // Use the env variable from Render
 
-// Constructing the MongoDB URI
-const port = config.port ? `:${config.port}` : '';
-const login = config.user && config.pw ? `${config.user}:${config.pw}@` : '';
-const uristring = `mongodb://${login}${config.host}${port}/${config.db}`;
+if (!mongoURI) {
+  console.error("MONGO_URI environment variable is not set.");
+  process.exit(1);
+}
+
+mongoose.set('strictQuery', false); // Optional, handles Mongoose deprecation warning
 
 const mongoOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true
 };
 
-// Connect to Database
-console.log("MongoDB Connection URI: ", uristring);
+console.log("MongoDB Connection URI: ", mongoURI);
 
-mongoose.connect(uristring, mongoOptions);
-
+mongoose.connect(mongoURI, mongoOptions)
+  .then(() => console.log(" Connected to MongoDB"))
+  .catch((err) => {
+    console.error(" MongoDB connection error:", err);
+    process.exit(1);
+  });
 
 module.exports = mongoose;
