@@ -1,14 +1,16 @@
 'use strict';
 const mongoose = require('mongoose');
+const config = require('../config/config'); // make sure path is correct
 
-const mongoURI = process.env.MONGO_URI; // Use the env variable from Render
+const mongoURI = config.MONGO_URI;
 
-if (!mongoURI) {
-  console.error("MONGO_URI environment variable is not set.");
+console.log("-------mongoURI-------", mongoURI);
+if (!mongoURI.startsWith('mongodb://') && !mongoURI.startsWith('mongodb+srv://')) {
+  console.error("Invalid MongoDB URI. Make sure it starts with 'mongodb://' or 'mongodb+srv://'");
   process.exit(1);
 }
 
-mongoose.set('strictQuery', false); // Optional, handles Mongoose deprecation warning
+mongoose.set('strictQuery', false);
 
 const mongoOptions = {
   useNewUrlParser: true,
@@ -18,9 +20,9 @@ const mongoOptions = {
 console.log("MongoDB Connection URI: ", mongoURI);
 
 mongoose.connect(mongoURI, mongoOptions)
-  .then(() => console.log(" Connected to MongoDB"))
+  .then(() => console.log("Connected to MongoDB"))
   .catch((err) => {
-    console.error(" MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err);
     process.exit(1);
   });
 
