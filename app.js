@@ -17,7 +17,7 @@ const express = require("express"),
 const app = express();
 const pdfDir = path.join(__dirname, "public", "pdfs");
 
-app.locals.siteName = "Naturefit";
+app.locals.siteName = "Oneonnn";
 
 app.use(cors());
 app.disable("etag");
