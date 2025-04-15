@@ -44,7 +44,7 @@ const uploadImage = async function(req, res) {
     const imageUrl = fileUploads.secure_url;
     saveImageToDB(imageUrl);
 
-    return apiResponse.sendSuccess({ imageUrl }, res);
+    return apiResponse.sendResponse({ imageUrl }, res);
   } catch (err) {
     console.error("Cloudinary Upload Error:", err);
     return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res);
