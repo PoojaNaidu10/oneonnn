@@ -72,7 +72,53 @@ var express = require('express'),
         }
     }
 
+    const isPositionExist = async function(req, res){
+        try{
+            let position = req.query.position
+            let isPositionExistObject = await Banner.findOne({"position":position})
+            if(isPositionExistObject != null){
+                return apiResponse.sendResponse({"isExist":true}, 200, res)
+            } else {
+                return apiResponse.sendResponse({"isExist":false}, 200, res)
+            }
+        } catch(err){
+            console.log("----err-----",err)
+            return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res)
+        }
+    }
+
+    const isUpdatePositionExist = async function (req, res) {
+        try {
+            const position = req.query.position;
+            const bannerId = req.query.banner_id; 
+    
+            
+            // const query = {
+            //     position: position
+            // };
+            // if (bannerId) {
+            //     query._id = { $ne: bannerId };
+            // }
+    
+            const isPositionExistObject = await Banner.findOne({$and:[{"position":position},{"_id":{$ne:bannerId}}]});
+            console.log("-----isPositionExistObject------",isPositionExistObject)
+            if (isPositionExistObject != null) {
+                return apiResponse.sendResponse({ isExist: true }, 200, res);
+            } else {
+                return apiResponse.sendResponse({ isExist: false }, 200, res);
+            }
+        } catch (err) {
+            console.log("----err-----", err);
+            return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res);
+        }
+    }
+    
+
     router.post("/banner/addHomeScreenBanner", addHomeScreenBanner)
+
+    router.get("/banner/isPositionExist", isPositionExist)
+    router.get("/banner/isUpdatePositionExist", isUpdatePositionExist)
+
     router.put("/banner/updateHomescreen", updateHomescreen)
     router.get("/banner/getAllHomeScreenList", getAllHomeScreenList)
     router.delete("/banner/deleteHomeScreenBanner", deleteHomeScreenBanner)

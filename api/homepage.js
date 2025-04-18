@@ -1,7 +1,7 @@
 const apiErrors = require('../utils/apiErrors');
 const apiResponse = require('../utils/apiResponse');
 const { route } = require('./admin');
-
+const sendMessage = require('../sendEmail/sendEmail')
 
 var express = require('express'),
     router = express.Router(),
@@ -14,8 +14,9 @@ var express = require('express'),
             let emailId = req.body.email_id
             let subject = req.body.subject
             let message = req.body.message
-
-            return sendContactUsEmail(name, mobileNo, emailId, subject, message)
+            console.log("---sendContactUsEmail----",name, mobileNo, emailId, subject, message)
+            sendMessage.sendContactUsEmail(name, mobileNo, emailId, subject, message)
+            return apiResponse.sendResponse({message:"Email sent sucessfully"}, 200, res)
         }catch(err){
             console.log("error",err)
             return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res)
