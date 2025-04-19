@@ -26,8 +26,16 @@ var express = require('express'),
     const addSuperStockerForm = function(req, res){
         try{
             let name = req.body.name
+            let businessName = req.body.business_name
+            let state = req.body.state
+            let city = req.body.city
+            let emailId = req.body.email_id
+            let mobileNo = req.body.mobile_no
+            let existingDistributionExperience = req.body.existing_distribution_experience
+            let wantToJoin = req.body.want_to_join
 
-            return sendSuperStockerEmail(name)
+            sendMessage.sendSuperStockerEmail(name, businessName, state, city, emailId, mobileNo, existingDistributionExperience, wantToJoin)
+            return apiResponse.sendResponse({message:"Email sent sucessfully"}, 200, res)
         } catch(err){
             console.log("error",err)
             return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res)
@@ -37,8 +45,15 @@ var express = require('express'),
     const addEnquiryForm = function(req, res){
         try{
             let name = req.body.name
+            let businessName = req.body.business_name
+            let emailId = req.body.email_id
+            let mobileNo = req.body.mobile_no
+            let city = req.body.city
+            let typeOfEnquiry = req.body.type_of_enquiry
+            let message = req.body.message
 
-            return sendEnquiryEmail(name)
+            sendMessage.sendEnquiryEmail(name, businessName, emailId, mobileNo, city, typeOfEnquiry, message)
+            return apiResponse.sendResponse({message:"Email sent sucessfully"}, 200, res)
         } catch(err){
             console.log("error",err)
             return apiResponse.sendError(apiErrors.APPLICATION.INTERNAL_ERROR, null, 500, res)
