@@ -9,7 +9,7 @@ var fields = {
    product_image:{type:String},
    ingredients:{type:String},
    weight:{type:String},
-   details:{type:String},
+details:{type:String},
    fat:{type:String},
    protein:{type:String},
    carbohydrates:{type:String},
