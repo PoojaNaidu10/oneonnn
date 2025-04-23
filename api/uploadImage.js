@@ -38,6 +38,7 @@ const uploadImage = async function(req, res) {
   }
 
   try {
+    console.log("---file----",file)
     const fileUploads = await cloudinary.uploader.upload(file, { resource_type: 'auto' });
     console.log("------fileUploads-------", fileUploads);
 
