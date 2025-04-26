@@ -5,13 +5,22 @@ config = require('../config/config'),
 nodemailer=require('nodemailer');
 
 
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail', 
+//     auth: {
+//       user: 'poojanaidu772@gmail.com',
+//       pass: 'ndirdtxgtrxqzsvb' // Not your email password!
+//     }
+//   })
+
 const transporter = nodemailer.createTransport({
-    service: 'gmail', 
-    auth: {
-      user: 'poojanaidu772@gmail.com',
-      pass: 'ndirdtxgtrxqzsvb' // Not your email password!
-    }
-  })
+  service: 'gmail', 
+  auth: {
+    user: 'oneonndrink@gmail.com',
+    pass: 'lcizbhuxjcssthhb' // Not your email password!
+  }
+})
+
 
 function sendContactUsEmail (name, mobileNo, emailId, subject, message){
     console.log("User email verify")
